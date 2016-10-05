@@ -1,0 +1,17 @@
+<div>
+  <p>
+    {{ occ.start }}
+    {% if occ.venue %}
+    @ {{ occ.venue.name }}
+    {% endif %}
+    [{% for et in occ.event.eventtags %}
+    {{ et.tag.name }}
+    {% endfor %}]
+  </p>
+  <p>
+    <a href="{{ url_for('event', occurrence_id=occ.id) }}">{{ occ.event.title }}</a>
+  </p>
+  <p>
+    {{ occ.event.description }}
+  </p>
+</div>

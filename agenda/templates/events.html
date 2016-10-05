@@ -1,0 +1,12 @@
+{% for event in events %}
+<div>
+  <p>
+    [{% for et in event.eventtags %}
+    {{ et.tag.name }}
+    {% endfor %}]
+  </p>
+  <p>
+    {{ event.title }}
+  </p>
+</div>
+{% endfor %}

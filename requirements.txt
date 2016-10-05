@@ -1,0 +1,7 @@
+Flask
+peewee
+flask_wtf
+
+# for tests
+names
+loremipsum

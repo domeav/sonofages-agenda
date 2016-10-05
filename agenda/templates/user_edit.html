@@ -1,0 +1,9 @@
+{% from "_formhelpers.html" import render_field %}
+<form method="POST" action="{{ url_for('save_user') }}">
+  {{ form.hidden_tag() }}
+  {{ render_field(form.username) }}
+  {{ render_field(form.name) }}
+  {{ render_field(form.contact) }}
+  {{ render_field(form.presentation) }}
+  <input type="submit" value="Go">
+</form>
