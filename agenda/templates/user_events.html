@@ -6,6 +6,9 @@
     {% endfor %}]
   </p>
   <p>
+    {% if event.image_type %}
+    <img src="{{ url_for('image', thumb=True, entity_type='event', entity_id=event.id, ext=event.image_type) }}"/>
+    {% endif %}
     {{ event.title }}
   </p>
 </div>

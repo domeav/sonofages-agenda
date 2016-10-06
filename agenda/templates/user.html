@@ -5,3 +5,6 @@
 <p>
   {{ user.presentation }}
 </p>
+<p>
+  <img src="{{ url_for('image', thumb=False, entity_type='user', entity_id=user.id, ext=user.image_type) }}">
+</p>

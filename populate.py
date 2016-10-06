@@ -3,10 +3,13 @@ from agenda.model import db, reset, User, Venue, Tag, Event, EventTag, Occurrenc
 import random, names
 from loremipsum import get_paragraph, get_sentences, get_sentence
 from datetime import datetime, timedelta
+import os
 
 
 db.connect()
 reset()
+
+IMAGES_FOLDER = 'populate-images'
 
 
 def generate_contact(name):
@@ -40,6 +43,13 @@ def generate_address():
                                                   random.randint(1000, 9999),
                                                   names.get_full_name().replace(' ', ''))
 
+
+def set_image(entity, probability):
+    if probability < random.random():
+        return
+    imagename = random.choice(os.listdir(IMAGES_FOLDER))
+    entity.set_image(os.path.join(IMAGES_FOLDER, imagename), imagename)
+
 users = []
 for i in range(15):
     name = names.get_full_name()
@@ -47,6 +57,7 @@ for i in range(15):
                 name=name,
                 contact=generate_contact(name),
                 presentation=generate_presentation())
+    set_image(user, 0.5)
     user.save()
     users.append(user)
 
@@ -56,6 +67,7 @@ for i in range(20):
                   address=generate_address(),
                   contact=generate_contact(names.get_full_name()),
                   description=generate_presentation())
+    set_image(venue, 0.6)
     venue.save()
     venues.append(venue)
 
@@ -63,6 +75,7 @@ tags = []
 for i in range(15):
     try:
         tag = Tag(name=names.get_last_name())
+        set_image(tag, 1)
         tag.save()
         tags.append(tag)
     except:
@@ -75,6 +88,7 @@ for i in range(100):
                   contact=generate_contact(names.get_full_name()),
                   owner=random.choice(users),
                   creation=datetime.now() - timedelta(days=random.randint(1, 365)))
+    set_image(event, 0.8)
     event.save()
     etags = []
     for j in range(random.randint(0, 3)):

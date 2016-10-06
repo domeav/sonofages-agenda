@@ -6,4 +6,5 @@ app = Flask(__name__)
 
 import agenda.events
 import agenda.users
+import agenda.pics
 

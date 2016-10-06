@@ -21,7 +21,7 @@ def user_events(user_id):
     events = Event.select()\
                   .where(Event.owner == user_id)\
                   .order_by(Event.creation).desc()
-    return render_template('events.html', events=events)
+    return render_template('user_events.html', events=events)
 
 
 @app.route('/agenda/user/edit/<user_id>')
@@ -46,6 +46,7 @@ def save_user():
     user.name = form.name.data
     user.contact = form.contact.data
     user.presentation = form.presentation.data
+    user.set_image(form.pic.data, form.pic.data.filename)
     user.save()
     return redirect(url_for('user', user_id=user.id))
 

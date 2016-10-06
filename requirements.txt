@@ -1,6 +1,7 @@
 Flask
 peewee
 flask_wtf
+Pillow
 
 # for tests
 names

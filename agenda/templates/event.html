@@ -14,4 +14,9 @@
   <p>
     {{ occ.event.description }}
   </p>
+  <p>
+    {% if occ.event.image_type %}
+    <img src="{{ url_for('image', thumb=False, entity_type='event', entity_id=occ.event.id, ext=occ.event.image_type) }}"/>
+    {% endif %}
+  </p>
 </div>
