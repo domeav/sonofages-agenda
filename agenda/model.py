@@ -19,7 +19,9 @@ class ModelWithPic(BaseModel):
     pic = BlobField(null=True)
     thumb = BlobField(null=True)
     image_type = CharField(null=True)
-    def set_image(self, file, filename):        
+    def set_image(self, file, filename):
+        if not filename:
+            return
         self.image_type = secure_filename(filename).split('.')[-1]
         image = Image.open(file)
         image.thumbnail((800, 800))
@@ -66,7 +68,7 @@ class EventTag(BaseModel):
     
     
 class Occurrence(BaseModel):
-    event = ForeignKeyField(Event)
+    event = ForeignKeyField(Event, related_name='occurrences')
     venue = ForeignKeyField(Venue, null=True)
     start = DateTimeField()
     end = DateTimeField(null=True)

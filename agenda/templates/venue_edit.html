@@ -1,0 +1,11 @@
+{% from "_formhelpers.html" import render_field %}
+<form method="POST" action="{{ url_for('save_venue') }}" 
+      enctype="multipart/form-data">
+  {{ form.hidden_tag() }}
+  {{ render_field(form.name) }}
+  {{ render_field(form.address) }}
+  {{ render_field(form.contact) }}
+  {{ render_field(form.description) }}
+  {{ render_field(form.pic) }}
+  <input type="submit" value="Go">
+</form>

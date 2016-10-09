@@ -1,10 +1,6 @@
 {% for occ in occurrences %}
 <div>
   <p>
-    {{ occ.start }}
-    {% if occ.venue %}
-    @ <a href="{{ url_for('venue', venue_id=occ.venue.id) }}">{{ occ.venue.name }}</a>
-    {% endif %}
     [{% for et in occ.event.eventtags %}
     {{ et.tag.name }}
     {% endfor %}]
@@ -13,7 +9,7 @@
     {% if occ.event.image_type %}
     <img src="{{ url_for('image', thumb=True, entity_type='event', entity_id=occ.event.id, ext=occ.event.image_type) }}"/>
     {% endif %}
-    <a href="{{ url_for('event', occurrence_id=occ.id) }}">{{ occ.event.title }}</a>
+    {{ occ.start }} {{ occ.event.title }}
   </p>
 </div>
 {% endfor %}

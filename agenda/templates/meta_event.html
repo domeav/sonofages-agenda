@@ -1,0 +1,28 @@
+<div>
+  <p>
+    [{% for et in event.eventtags %}
+    {{ et.tag.name }}
+    {% endfor %}]
+  </p>
+  <p>
+    <a href="{{ url_for('meta_event', event_id=id) }}">{{ event.title }}</a>
+  </p>
+  <p>
+    {{ event.description }}
+  </p>
+  <p>
+    {{ event.contact }}
+  </p>
+  <p>
+    {% if event.image_type %}
+    <img src="{{ url_for('image', thumb=False, entity_type='event', entity_id=event.id, ext=event.image_type) }}"/>
+    {% endif %}
+  </p>
+  <p>
+    <ul>
+      {% for occ in event.occurrences %}
+      <li>{{ occ.start }} @ {{ occ.venue }}</li>
+      {% endfor %}
+    </ul>
+  </p>
+</div>

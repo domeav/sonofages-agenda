@@ -16,7 +16,7 @@ def users():
     return render_template('users.html', users=users)
 
 
-@app.route('/agenda/events/<user_id>')
+@app.route('/agenda/user_events/<user_id>')
 def user_events(user_id):
     events = Event.select()\
                   .where(Event.owner == user_id)\
