@@ -5,6 +5,25 @@
   {{ render_field(form.title) }}
   {{ render_field(form.description) }}
   {{ render_field(form.contact) }}
-  {{ render_field(form.pic) }}
+
+  <br/>
+  {% for tag in tags %}
+  <input type="checkbox" name="tag-{{ tag.id }}" value="{{ tag.id }}" {{ 'checked' if tag.id in eventtags }}/>{{ tag.name }}
+  {% endfor %}
+
+  {{ render_field(form.pic) }}  
+  {% for occform in form.occurrences %}
+  <hr/>
+  {{ occform.hidden_tag() }}
+  {{ render_field(occform.venue_id) }}
+  {{ render_field(occform.start) }}
+  {{ render_field(occform.end) }}
+  {{ render_field(occform.delete_gig) }}
+  {% endfor %}
+  <hr/>
   <input type="submit" value="Go">
 </form>
+
+{% for venue in venues %}
+{{ venue.name }}
+{% endfor %}

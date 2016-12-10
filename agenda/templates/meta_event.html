@@ -21,7 +21,7 @@
   <p>
     <ul>
       {% for occ in event.occurrences %}
-      <li>{{ occ.start }} @ {{ occ.venue }}</li>
+      <li>{{ occ.start }} @ {{ occ.venue.name }}</li>
       {% endfor %}
     </ul>
   </p>

@@ -35,6 +35,8 @@ class ModelWithPic(BaseModel):
         
         
 class User(ModelWithPic):
+    class Meta:
+        order_by = ('name',)
     username = CharField(unique=True)
     name = CharField(null=True)    
     contact = CharField(index=True, null=True)
@@ -42,6 +44,8 @@ class User(ModelWithPic):
         
     
 class Venue(ModelWithPic):
+    class Meta:
+        order_by = ('name',)
     name = CharField(index=True)
     address = TextField(index=True)
     contact = CharField(index=True, null=True)
@@ -51,10 +55,14 @@ class Venue(ModelWithPic):
 
     
 class Tag(ModelWithPic):
+    class Meta:
+        order_by = ('name',)
     name = CharField(unique=True)    
     
 
 class Event(ModelWithPic):
+    class Meta:
+        order_by = ('title',)
     title = CharField(index=True)
     description = TextField(null=True)
     contact = CharField(null=True)
@@ -68,6 +76,8 @@ class EventTag(BaseModel):
     
     
 class Occurrence(BaseModel):
+    class Meta:
+        order_by = ('start',)
     event = ForeignKeyField(Event, related_name='occurrences')
     venue = ForeignKeyField(Venue, null=True)
     start = DateTimeField()
