@@ -1,10 +1,19 @@
+body {
+    background-image: url('/static/back.jpg');
+}
+
+h1 {
+    text-align: center;
+}
+
 .grid {
     margin: 0 auto;
     text-align: center;
 }
 
 .grid-item {
-    background-color: #ddd;
+    background: rgb(256, 256, 256);
+    background: rgba(256, 256, 256, 0.8);
     padding: 20px;
     margin-bottom: 20px;
     width: 260px;

@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css" />
   </head>
   <body>
+    <h1>{{ site_title }}</h1>
     {% block main %}{% endblock %}
   </body>
 </html>
