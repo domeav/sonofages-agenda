@@ -1,11 +1,9 @@
 from peewee import *
 from werkzeug.utils import secure_filename
+from flask_security import UserMixin, RoleMixin
 from PIL import Image
 import io
-
-
-db = SqliteDatabase('agenda.db')
-
+from instance import settings
 
 IMAGE_FORMATS = {'jpg': 'jpeg',
                  'jpeg': 'jpeg',
@@ -13,7 +11,7 @@ IMAGE_FORMATS = {'jpg': 'jpeg',
 
 class BaseModel(Model):
     class Meta:
-        database = db
+        database = settings.db
 
 class ModelWithPic(BaseModel):
     pic = BlobField(null=True)
@@ -33,14 +31,27 @@ class ModelWithPic(BaseModel):
         image.save(thumb, format=IMAGE_FORMATS[self.image_type])
         self.thumb = thumb.getvalue()
         
-        
-class User(ModelWithPic):
+
+class Role(BaseModel, RoleMixin):
+    name = CharField(unique=True)
+    description = TextField(null=True)
+
+    
+class User(ModelWithPic, UserMixin):
     class Meta:
         order_by = ('name',)
-    username = CharField(unique=True)
-    name = CharField(null=True)    
-    contact = CharField(index=True, null=True)
+    name = TextField()
+    email = TextField()
+    password = TextField()
     presentation = TextField(null=True)
+    active = BooleanField(default=True)
+    confirmed_at = DateTimeField(null=True)
+
+class UserRole(BaseModel):
+    user = ForeignKeyField(User, related_name='roles')
+    role = ForeignKeyField(Role, related_name='users')
+    name = property(lambda self: self.role.name)
+    description = property(lambda self: self.role.description)
         
     
 class Venue(ModelWithPic):
@@ -85,11 +96,11 @@ class Occurrence(BaseModel):
 
 
 def reset():
-    all = [User, Venue, Tag, Event, EventTag, Occurrence]
-    db.drop_tables(all)
-    db.create_tables(all)
+    all = [Role, User, UserRole, Venue, Tag, Event, EventTag, Occurrence]
+#    settings.db.drop_tables(all)
+    settings.db.create_tables(all)
     
 
 if __name__ == '__main__':
-    db.connect()
+    settings.db.connect()
     reset()

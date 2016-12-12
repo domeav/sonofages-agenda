@@ -1,24 +1,20 @@
 #!/usr/bin/env python
-from agenda.model import db, reset, User, Venue, Tag, Event, EventTag, Occurrence
+from instance import settings
+from agenda.model import reset, User, Venue, Tag, Event, EventTag, Occurrence
 import random, names
 from loremipsum import get_paragraph, get_sentences, get_sentence
 from datetime import datetime, timedelta
 import os
 
 
-db.connect()
+settings.db.connect()
 reset()
 
 IMAGES_FOLDER = 'populate-images'
 
 
-def generate_contact(name):
-    if random.randint(0, 2) == 0:
-        return "{}@{}.com".format(*name.split(' ')[:2])
-    if random.randint(0, 1) == 0:
-        return "0{} {}{} {}{} {}{} {}{}".format(
-            *[random.randint(0, 9) for i in range(0, 9)])
-    return ''
+def generate_mail(name):
+    return "{}@{}.com".format(*name.split(' ')[:2])
 
 
 def generate_presentation():
@@ -50,12 +46,16 @@ def set_image(entity, probability):
     imagename = random.choice(os.listdir(IMAGES_FOLDER))
     entity.set_image(os.path.join(IMAGES_FOLDER, imagename), imagename)
 
-users = []
+dom = User(name='Dominique Eav',
+           email='dom.eav@gmail.com',
+           password='password')
+dom.save()
+users = [dom]
 for i in range(15):
     name = names.get_full_name()
-    user = User(username=name.replace(' ', ''),
-                name=name,
-                contact=generate_contact(name),
+    user = User(name=name,
+                password=name,
+                email=generate_mail(name),
                 presentation=generate_presentation())
     set_image(user, 0.5)
     user.save()
@@ -65,7 +65,7 @@ venues = []
 for i in range(20):
     venue = Venue(name=generate_venue_name(),
                   address=generate_address(),
-                  contact=generate_contact(names.get_full_name()),
+                  contact=generate_mail(names.get_full_name()),
                   description=generate_presentation())
     set_image(venue, 0.6)
     venue.save()
@@ -85,7 +85,7 @@ events = []
 for i in range(100):
     event = Event(title=get_sentence(),
                   description=generate_presentation(),
-                  contact=generate_contact(names.get_full_name()),
+                  contact=generate_mail(names.get_full_name()),
                   owner=random.choice(users),
                   creation=datetime.now() - timedelta(days=random.randint(1, 365)))
     set_image(event, 0.8)

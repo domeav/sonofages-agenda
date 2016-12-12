@@ -2,6 +2,7 @@ Flask
 peewee
 flask_wtf
 Pillow
+flask-security
 
 # for tests
 names

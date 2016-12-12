@@ -1,6 +1,7 @@
 from agenda.model import Occurrence, Event, Venue, Tag, EventTag
 from agenda.forms import EventForm
 from flask import render_template, request, redirect, url_for
+from flask_security import login_required
 from datetime import datetime
 from agenda import app
 
