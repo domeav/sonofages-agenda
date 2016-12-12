@@ -1,23 +1,33 @@
 {% extends 'base.html' %}
 
 {% block main %}
-{% for occ in occurrences %}
-<div>
-  <p>
-    {{ occ.start }}
-    {% if occ.venue %}
-    @ <a href="{{ url_for('venue', venue_id=occ.venue.id) }}">{{ occ.venue.name }}</a>
-    {% endif %}
-    [{% for et in occ.event.eventtags %}
-    {{ et.tag.name }}
-    {% endfor %}]
-  </p>
-  <p>
+<div class="grid">
+  {% for occ in occurrences %}
+  <div class="grid-item">
+
+    {{ occ.start.strftime('%A %d %b') }}<br/>
+    <b>{{ occ.start.strftime('%H:%M') }}</b>
     {% if occ.event.image_type %}
-    <img src="{{ url_for('image', thumb=True, entity_type='event', entity_id=occ.event.id, ext=occ.event.image_type) }}"/>
+    <div class="square" style="background-image: url({{ url_for('image', thumb=True, entity_type='event', entity_id=occ.event.id, ext=occ.event.image_type) }});"></div>
     {% endif %}
-    <a href="{{ url_for('event', occurrence_id=occ.id) }}">{{ occ.event.title }}</a>
-  </p>
+    <h2><a href="{{ url_for('event', occurrence_id=occ.id) }}">{{ occ.event.title }}</a></h2>
+    {% for et in occ.event.eventtags %}
+    <span class="tag">{{ et.tag.name }}</span>
+    {% endfor %}
+    {% if occ.venue %}
+    <br/>
+    <a href="{{ url_for('venue', venue_id=occ.venue.id) }}">{{ occ.venue.name }}</a>
+    {% endif %}
+
+  </div>
+  {% endfor %}
 </div>
-{% endfor %}
+<script>
+  $('.grid').masonry({
+    itemSelector: '.grid-item',
+    columnWidth: 300,
+    "gutter": 20,
+    "fitWidth": true
+  });
+</script>
 {% endblock %}

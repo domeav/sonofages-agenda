@@ -1,7 +1,9 @@
 <html>
   <head>
     <title>{{ site_title }}</title>
+    <script src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/masonry.pkgd.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css" />
   </head>
   <body>
     {% block main %}{% endblock %}

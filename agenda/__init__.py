@@ -4,6 +4,9 @@ from flask_security import PeeweeUserDatastore, Security
 from flask_mail import Mail
 from datetime import datetime
 from instance import settings
+import locale
+
+locale.setlocale(locale.LC_ALL, settings.LOCALE)
 
 app = Flask(__name__)
 

@@ -1,0 +1,24 @@
+.grid {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.grid-item {
+    background-color: #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 260px;
+}
+
+.square {
+    height: 90px;
+    width: 120px;
+    background-size: cover;
+    background-position: center;
+    margin: 20px auto;
+}
+
+.tag {
+    font-size: small;
+    color: #999;
+}
