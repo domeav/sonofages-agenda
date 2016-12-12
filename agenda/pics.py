@@ -8,8 +8,8 @@ ENTITY_TYPES = {'user': User,
                 'event': Event,
                 'tag': Tag}
 
-@app.route('/agenda/thumb/<entity_type>/<entity_id>.<ext>', defaults={'thumb': True})
-@app.route('/agenda/pic/<entity_type>/<entity_id>.<ext>', defaults={'thumb': False})
+@app.route('/thumb/<entity_type>/<entity_id>.<ext>', defaults={'thumb': True})
+@app.route('/pic/<entity_type>/<entity_id>.<ext>', defaults={'thumb': False})
 def image(entity_type, entity_id, ext, thumb):
     entity = ENTITY_TYPES[entity_type]
     record = entity.get(entity.id == entity_id)

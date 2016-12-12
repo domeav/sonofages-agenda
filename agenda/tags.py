@@ -4,19 +4,19 @@ from flask import render_template, request, redirect, url_for
 from agenda import app
 
 
-@app.route('/agenda/tag/<tag_id>')
+@app.route('/tag/<tag_id>')
 def tag(tag_id):
     tag = Tag.get(Tag.id == tag_id)
     return render_template('tag.html', tag=tag)
 
 
-@app.route('/agenda/tags/')
+@app.route('/tags/')
 def tags():
     tags = Tag.select().order_by(Tag.name)
     return render_template('tags.html', tags=tags)
 
 
-@app.route('/agenda/tag_events/<tag_id>')
+@app.route('/tag_events/<tag_id>')
 def tag_events(tag_id):
     occurrences = Occurrence.select()\
                   .join(Event)\
@@ -26,8 +26,8 @@ def tag_events(tag_id):
     return render_template('tag_events.html', occurrences=occurrences)
 
 
-@app.route('/agenda/tag/edit/<tag_id>')
-@app.route('/agenda/tag/edit/')
+@app.route('/tag/edit/<tag_id>')
+@app.route('/tag/edit/')
 def edit_tag(tag_id=None):
     tag = None
     if tag_id:
@@ -35,7 +35,7 @@ def edit_tag(tag_id=None):
     return render_template('tag_edit.html', form=TagForm(obj=tag))
 
 
-@app.route('/agenda/tag/save/', methods=['POST'])
+@app.route('/tag/save/', methods=['POST'])
 def save_tag():
     form = TagForm()
     if not form.validate_on_submit():

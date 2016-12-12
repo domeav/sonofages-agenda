@@ -18,6 +18,10 @@ app.config['MAIL_USERNAME'] = settings.MAIL_USERNAME
 app.config['MAIL_PASSWORD'] = settings.MAIL_PASSWORD
 mail = Mail(app)
 
+@app.context_processor
+def inject():
+    return dict(site_title=settings.SITE_TITLE)
+
 import agenda.events
 import agenda.users
 import agenda.pics

@@ -4,19 +4,19 @@ from flask import render_template, request, redirect, url_for
 from agenda import app
 
 
-@app.route('/agenda/venue/<venue_id>')
+@app.route('/venue/<venue_id>')
 def venue(venue_id):
     venue = Venue.get(Venue.id == venue_id)
     return render_template('venue.html', venue=venue)
 
 
-@app.route('/agenda/venues/')
+@app.route('/venues/')
 def venues():
     venues = Venue.select().order_by(Venue.name)
     return render_template('venues.html', venues=venues)
 
 
-@app.route('/agenda/venue_events/<venue_id>')
+@app.route('/venue_events/<venue_id>')
 def venue_events(venue_id):
     events = Event.select()\
                   .join(Occurrence)\
@@ -25,8 +25,8 @@ def venue_events(venue_id):
     return render_template('venue_events.html', events=events)
 
 
-@app.route('/agenda/venue/edit/<venue_id>')
-@app.route('/agenda/venue/edit/')
+@app.route('/venue/edit/<venue_id>')
+@app.route('/venue/edit/')
 def edit_venue(venue_id=None):
     venue = None
     if venue_id:
@@ -34,7 +34,7 @@ def edit_venue(venue_id=None):
     return render_template('venue_edit.html', form=VenueForm(obj=venue))
 
 
-@app.route('/agenda/venue/save/', methods=['POST'])
+@app.route('/venue/save/', methods=['POST'])
 def save_venue():
     form = VenueForm()
     if not form.validate_on_submit():

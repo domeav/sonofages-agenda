@@ -4,19 +4,19 @@ from flask import render_template, request, redirect, url_for
 from agenda import app
 
 
-@app.route('/agenda/user/<user_id>')
+@app.route('/user/<user_id>')
 def user(user_id):
     user = User.get(User.id == user_id)
     return render_template('user.html', user=user)
 
 
-@app.route('/agenda/users/')
+@app.route('/users/')
 def users():
     users = User.select().order_by(User.username)
     return render_template('users.html', users=users)
 
 
-@app.route('/agenda/user_events/<user_id>')
+@app.route('/user_events/<user_id>')
 def user_events(user_id):
     events = Event.select()\
                   .where(Event.owner == user_id)\
@@ -24,8 +24,8 @@ def user_events(user_id):
     return render_template('user_events.html', events=events)
 
 
-@app.route('/agenda/user/edit/<user_id>')
-@app.route('/agenda/user/edit/')
+@app.route('/user/edit/<user_id>')
+@app.route('/user/edit/')
 def edit_user(user_id=None):
     user = None
     if user_id:
@@ -33,7 +33,7 @@ def edit_user(user_id=None):
     return render_template('user_edit.html', form=UserForm(obj=user))
 
 
-@app.route('/agenda/user/save/', methods=['POST'])
+@app.route('/user/save/', methods=['POST'])
 def save_user():
     form = UserForm()
     if not form.validate_on_submit():

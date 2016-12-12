@@ -5,10 +5,8 @@ from flask_security import login_required
 from datetime import datetime
 from agenda import app
 
-
 @app.route('/')
-@app.route('/agenda/')
-@app.route('/agenda/events/')
+@app.route('/events/')
 def events():
     page = request.args.get('p', 1)
     target_date = request.args.get('d', datetime.now())
@@ -18,20 +16,20 @@ def events():
     return render_template('agenda.html', occurrences=occurrences)
 
 
-@app.route('/agenda/event/<occurrence_id>')
+@app.route('/event/<occurrence_id>')
 def event(occurrence_id):
     occurrence = Occurrence.get(Occurrence.id == occurrence_id)
     return render_template('event.html', occ=occurrence)
 
 
-@app.route('/agenda/meta_event/<event_id>')
+@app.route('/meta_event/<event_id>')
 def meta_event(event_id):
     event = Event.get(Event.id == event_id)
     return render_template('meta_event.html', event=event)
 
 
-@app.route('/agenda/meta_event/edit/<event_id>')
-@app.route('/agenda/meta_event/edit/')
+@app.route('/meta_event/edit/<event_id>')
+@app.route('/meta_event/edit/')
 def edit_event(event_id=None):
     event = None
     if event_id:
@@ -43,7 +41,7 @@ def edit_event(event_id=None):
                            eventtags={et.tag.id for et in event.eventtags})
 
 
-@app.route('/agenda/meta_event/save/', methods=['POST'])
+@app.route('/meta_event/save/', methods=['POST'])
 def save_event():
     form = EventForm()
     form.set_venues(Venue.select())
