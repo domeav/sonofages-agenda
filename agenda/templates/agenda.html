@@ -5,20 +5,25 @@
   {% for occ in occurrences %}
   <div class="grid-item">
 
-    {{ occ.start.strftime('%A %d %b') }}<br/>
-    <b>{{ occ.start.strftime('%H:%M') }}</b>
-    {% if occ.event.image_type %}
-    <div class="square" style="background-image: url({{ url_for('image', thumb=True, entity_type='event', entity_id=occ.event.id, ext=occ.event.image_type) }});"></div>
-    {% endif %}
-    <h2><a href="{{ url_for('event', occurrence_id=occ.id) }}">{{ occ.event.title }}</a></h2>
-    {% for et in occ.event.eventtags %}
-    <span class="tag">{{ et.tag.name }}</span>
-    {% endfor %}
-    {% if occ.venue %}
-    <br/>
-    <a href="{{ url_for('venue', venue_id=occ.venue.id) }}">{{ occ.venue.name }}</a>
-    {% endif %}
+    <div class="date">{{ occ.start.strftime('%A %d %b') }}</div>
+    <div class="evtitle">
+      {% if occ.event.image_type %}
+      <div class="evthumb" style="background-image: url({{ url_for('image', thumb=True, entity_type='event', entity_id=occ.event.id, ext=occ.event.image_type) }});"></div>
+      {% endif %}
+      <a href="{{ url_for('event', occurrence_id=occ.id) }}">{{ occ.event.title }}</a>
+    </div>
 
+    <div class="tags">
+      {% for et in occ.event.eventtags %}
+      {{ et.tag.name }}
+      {% endfor %}
+    </div>
+    <div class="evinfos">
+      {{ occ.start.strftime('%H:%M') }}
+      {% if occ.venue %}
+      <a href="{{ url_for('venue', venue_id=occ.venue.id) }}">{{ occ.venue.name }}</a>
+      {% endif %}
+    </div>
   </div>
   {% endfor %}
 </div>

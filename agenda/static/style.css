@@ -1,33 +1,89 @@
 body {
     background-image: url('/static/back.jpg');
+    font-family: georgia, serif;
 }
 
 h1 {
-    text-align: center;
+    margin: 50px;
+    font-size: 90px;
+    display: inline-block;
+    position: relative;
+    letter-spacing: -5px;
+    color: rgba(0, 0, 255, 0.5);
+    width: 600px;
+}
+
+h1:after{
+    content: attr(title);
+    position: absolute;
+    left: 5px;
+    top: 5px;
+    color: rgba(255, 0, 0, 0.5);
+}
+
+.evtitle {
+    margin: 20px 0 20px 0;
+    hyphens: auto;
+    font-size: x-large;
+    font-weight: bold;
+    overflow: auto;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .grid {
     margin: 0 auto;
-    text-align: center;
 }
 
 .grid-item {
-    background: rgb(256, 256, 256);
-    background: rgba(256, 256, 256, 0.8);
     padding: 20px;
     margin-bottom: 20px;
     width: 260px;
+    border: 1px solid rgba(0, 0, 255, 0.5);
 }
 
-.square {
-    height: 90px;
+.grid-item:before {
+    background: rgba(255, 255, 255, 0.6);
+    content: " ";
+    position: absolute;
+    z-index: -1;
+    top: 2px;
+    left: 2px;
+    right: -3px;
+    bottom: -4px;
+    border: 1px solid rgba(255, 0, 0, 0.5);
+}
+
+.evthumb {
+    height: 120px;
     width: 120px;
     background-size: cover;
     background-position: center;
-    margin: 20px auto;
+    display: inline-block;
+    float: left;
+    margin: 5px 10px 10px 0;
 }
 
-.tag {
+.evinfos {
+    text-align: center;
+    font-family: Verdana, sans-serif;
+    font-size: small;
+    text-decoration: overline;
+}
+
+.tags {
+    text-align: center;
+    margin: 20px 0 20px 0;
     font-size: small;
     color: #999;
+}
+
+.date {
+    text-align: right;
+    font-weight: bold;
+    color: white;
+    background-color: #777;
 }

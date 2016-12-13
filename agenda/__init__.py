@@ -23,7 +23,8 @@ mail = Mail(app)
 
 @app.context_processor
 def inject():
-    return dict(site_title=settings.SITE_TITLE)
+    return dict(site_title=settings.SITE_TITLE,
+                lang=settings.LOCALE[:2])
 
 import agenda.events
 import agenda.users

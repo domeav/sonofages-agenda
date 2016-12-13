@@ -12,7 +12,7 @@ def events():
     target_date = request.args.get('d', datetime.now())
     occurrences = Occurrence.select()\
                             .where(Occurrence.start >= target_date)\
-                            .paginate(page, 100)
+                            .paginate(page, 30)
     return render_template('agenda.html', occurrences=occurrences)
 
 
