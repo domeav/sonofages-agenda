@@ -16,20 +16,14 @@ def events():
     return render_template('agenda.html', occurrences=occurrences)
 
 
-@app.route('/event/<occurrence_id>')
-def event(occurrence_id):
-    occurrence = Occurrence.get(Occurrence.id == occurrence_id)
-    return render_template('event.html', occ=occurrence)
-
-
-@app.route('/meta_event/<event_id>')
-def meta_event(event_id):
+@app.route('/event/<event_id>')
+def event(event_id):
     event = Event.get(Event.id == event_id)
-    return render_template('meta_event.html', event=event)
+    return render_template('event.html', event=event)
 
 
-@app.route('/meta_event/edit/<event_id>')
-@app.route('/meta_event/edit/')
+@app.route('/event/edit/<event_id>')
+@app.route('/event/edit/')
 def edit_event(event_id=None):
     event = None
     if event_id:
@@ -41,7 +35,7 @@ def edit_event(event_id=None):
                            eventtags={et.tag.id for et in event.eventtags})
 
 
-@app.route('/meta_event/save/', methods=['POST'])
+@app.route('/event/save/', methods=['POST'])
 def save_event():
     form = EventForm()
     form.set_venues(Venue.select())
@@ -85,4 +79,4 @@ def save_event():
                 del(existing_tags[tag_id])
     for key, value in existing_tags.items():
         value.delete_instance()
-    return redirect(url_for('meta_event', event_id=event.id))
+    return redirect(url_for('event', event_id=event.id))

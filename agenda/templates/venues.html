@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block main %}
 {% for venue in venues %}
 <h2><a href="{{ url_for('venue_events', venue_id=venue.id) }}">{{ venue.name }}</a></h2>
 <p>{{ venue.address }}</p>
@@ -9,3 +12,4 @@
   {% endif %}
 </p>
 {% endfor %}
+{% endblock %}

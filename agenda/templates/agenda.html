@@ -10,7 +10,7 @@
       {% if occ.event.image_type %}
       <div class="evthumb" style="background-image: url({{ url_for('image', thumb=True, entity_type='event', entity_id=occ.event.id, ext=occ.event.image_type) }});"></div>
       {% endif %}
-      <a href="{{ url_for('event', occurrence_id=occ.id) }}">{{ occ.event.title }}</a>
+      <a href="{{ url_for('event', event_id=occ.event.id) }}">{{ occ.event.title }}</a>
     </div>
 
     <div class="tags">

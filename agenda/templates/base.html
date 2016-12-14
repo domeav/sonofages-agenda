@@ -6,7 +6,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css" />
   </head>
   <body lang="{{ lang }}">
-    <h1 title="{{ site_title|safe }}">{{ site_title|safe }}</h1>
+    <a href="{{ url_for('events') }}">
+      <h1 title="{{ site_title|safe }}">{{ site_title|safe }}</h1>
+    </a>
     {% block main %}{% endblock %}
   </body>
 </html>

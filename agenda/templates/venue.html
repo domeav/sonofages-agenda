@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block main %}
 <h2><a href="{{ url_for('venue_events', venue_id=venue.id) }}">{{ venue.name }}</a></h2>
 <p>{{ venue.address }}</p>
 <p>{{ venue.contact }}</p>
@@ -7,3 +10,4 @@
   <img src="{{ url_for('image', thumb=False, entity_type='venue', entity_id=venue.id, ext=venue.image_type) }}">
   {% endif %}
 </p>
+{% endblock %}

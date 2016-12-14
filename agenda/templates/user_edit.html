@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block main %}
 {% from "_formhelpers.html" import render_field %}
 <form method="POST" action="{{ url_for('save_user') }}" 
       enctype="multipart/form-data">
@@ -9,3 +12,4 @@
   {{ render_field(form.pic) }}
   <input type="submit" value="Go">
 </form>
+{% endblock %}

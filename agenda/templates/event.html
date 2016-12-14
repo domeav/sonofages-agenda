@@ -1,22 +1,32 @@
+{% extends 'base.html' %}
+
+{% block main %}
 <div>
   <p>
-    {{ occ.start }}
-    {% if occ.venue %}
-    @ {{ occ.venue.name }}
-    {% endif %}
-    [{% for et in occ.event.eventtags %}
+    [{% for et in event.eventtags %}
     {{ et.tag.name }}
     {% endfor %}]
   </p>
   <p>
-    <a href="{{ url_for('event', occurrence_id=occ.id) }}">{{ occ.event.title }}</a>
+    {{ event.title }}
   </p>
   <p>
-    {{ occ.event.description }}
+    {{ event.description }}
   </p>
   <p>
-    {% if occ.event.image_type %}
-    <img src="{{ url_for('image', thumb=False, entity_type='event', entity_id=occ.event.id, ext=occ.event.image_type) }}"/>
+    {{ event.contact }}
+  </p>
+  <p>
+    {% if event.image_type %}
+    <img src="{{ url_for('image', thumb=False, entity_type='event', entity_id=event.id, ext=event.image_type) }}"/>
     {% endif %}
   </p>
+  <p>
+    <ul>
+      {% for occ in event.occurrences %}
+      <li>{{ occ.start }} @ {{ occ.venue.name }}</li>
+      {% endfor %}
+    </ul>
+  </p>
 </div>
+{% endblock %}

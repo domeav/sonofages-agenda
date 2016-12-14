@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+
+{% block main %}
 {% from "_formhelpers.html" import render_field %}
 <form method="POST" action="{{ url_for('save_event') }}"
       enctype="multipart/form-data">
@@ -27,3 +30,4 @@
 {% for venue in venues %}
 {{ venue.name }}
 {% endfor %}
+{% endblock %}
