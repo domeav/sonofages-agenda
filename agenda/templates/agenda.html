@@ -19,7 +19,7 @@
       {% endfor %}
     </div>
     <div class="evinfos">
-      {{ occ.start.strftime('%H:%M') }}
+      <b>{{ occ.start.strftime('%H:%M') }}</b>
       {% if occ.venue %}
       <a href="{{ url_for('venue', venue_id=occ.venue.id) }}">{{ occ.venue.name }}</a>
       {% endif %}
